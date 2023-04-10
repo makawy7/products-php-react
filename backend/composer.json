@@ -1,0 +1,10 @@
+{
+    "name": "abdallah/scanditask",
+    "description": "RESTful API for the Scandiweb Junior Developer position",
+    "autoload": {
+        "psr-4": {
+            "Abdallah\\Scanditask\\": "src/"
+        }
+    },
+    "require": {}
+}
