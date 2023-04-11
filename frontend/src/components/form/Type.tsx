@@ -1,14 +1,17 @@
 import { Dispatch, ChangeEvent, SetStateAction } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Type({
   type,
   setType,
   setInputs,
+  errors,
 }: {
   type: string;
   setType: Dispatch<SetStateAction<string>>;
   setInputs: Dispatch<SetStateAction<ProductFields>>;
+  errors: CreateProductErrors;
 }) {
   const typeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);

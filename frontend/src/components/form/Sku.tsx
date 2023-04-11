@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Sku({
   setInputs,
   sku,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   sku: string;
+  errors: CreateProductErrors;
 }) {
   const skuChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({ ...prev, sku: e.target.value }));

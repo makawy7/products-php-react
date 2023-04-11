@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Dvd({
   setInputs,
   size,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   size: string;
+  errors: CreateProductErrors;
 }) {
   const sizeChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({

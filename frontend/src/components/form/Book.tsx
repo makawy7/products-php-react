@@ -1,11 +1,15 @@
 import { Dispatch, SetStateAction, ChangeEvent, useState } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
+
 export default function Book({
   setInputs,
   weight,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   weight: string;
+  errors: CreateProductErrors;
 }) {
   const weightChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({

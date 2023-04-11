@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Price({
   setInputs,
   price,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   price: string
+  errors: CreateProductErrors;
 }) {
   const priceChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({

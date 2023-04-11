@@ -1,16 +1,19 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Furniture({
   setInputs,
   height,
   width,
   length,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   height: string
   width: string
   length: string
+  errors: CreateProductErrors;
 }) {
   const heightChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({

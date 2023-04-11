@@ -1,12 +1,15 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
+import { CreateProductErrors } from "../../types/CreateProductErrors";
 
 export default function Name({
   setInputs,
   name,
+  errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
   name: string;
+  errors: CreateProductErrors;
 }) {
   const nameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs((prev: ProductFields) => ({ ...prev, name: e.target.value }));
@@ -23,9 +26,11 @@ export default function Name({
           id="name"
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />
-        <div className="mt-1 text-xs text-red-600 hidden">
-          Please enter a valid Name.
-        </div>
+        {errors.name && (
+          <div className="mt-1 text-xs text-red-600 ">
+            Please enter a valid Name.
+          </div>
+        )}
       </div>
     </div>
   );
