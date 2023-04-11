@@ -3,8 +3,14 @@ import SingleProduct from "../components/SingleProduct";
 import useFetch from "../hooks/useFetch";
 import Loading from "../components/Loading";
 import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
+import { Dispatch, SetStateAction } from "react";
+import { ProductType } from "../types/ProductType";
 
-function ListProducts() {
+function ListProducts({
+  setSubmitSuccess,
+}: {
+  setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
+}) {
   const { data, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
 
   if (loading) {
@@ -38,7 +44,7 @@ function ListProducts() {
         action="./deleteproduct"
         method="post"
       >
-        {data.map((product) => (
+        {data.map((product: ProductType) => (
           <SingleProduct key={product.id} {...product} />
         ))}
 
