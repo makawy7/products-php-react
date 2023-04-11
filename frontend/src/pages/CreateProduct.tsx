@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { ProductFields } from "../types/ProductFields";
 import ErrorBar from "../components/ErrorBar";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,13 @@ import {
 } from "../components/form";
 import Circle from "../components/Circle";
 
-function CreateProduct() {
+function CreateProduct({
+  setSubmitSuccess,
+  setSuccessMessage,
+}: {
+  setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
+  setSuccessMessage: Dispatch<SetStateAction<string | null>>;
+}) {
   const navigate = useNavigate();
   const [type, setType] = useState("");
   const [Inputs, setInputs] = useState<ProductFields>(defaultInputs);
@@ -47,6 +53,7 @@ function CreateProduct() {
     const data = await res.json();
     if (res.status === 201) {
       setSubmitError(false);
+      setSubmitSuccess(true);
       navigate("/");
     } else {
       setErrorMessage(data?.error);

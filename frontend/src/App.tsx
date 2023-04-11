@@ -16,7 +16,15 @@ function App() {
               index
               element={<ListProducts setSubmitSuccess={setSubmitSuccess} />}
             />
-            <Route path="add-product" element={<CreateProduct />} />
+            <Route
+              path="add-product"
+              element={
+                <CreateProduct
+                  setSubmitSuccess={setSubmitSuccess}
+                  setSuccessMessage={setSuccessMessage}
+                />
+              }
+            />
           </Route>
         </Routes>
       </Layout>

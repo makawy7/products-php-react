@@ -86,7 +86,8 @@ class ProductController
             Validator::validateProductData($type, $sku, $name, $price, $size, $weight, $height, $width, $length);
             try {
                 $product = $this->productRepository->createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length);
-                $this->sendJsonResponse($product, 201);
+                $productName = $product['name'];
+                $this->sendJsonResponse(['success' => "Product $productName has been created."], 201);
             } catch (\Exception $e) {
                 // SKU already exists
                 $this->sendJsonResponse(['error' => $e->getMessage()], 400);
