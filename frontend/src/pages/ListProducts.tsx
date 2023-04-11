@@ -5,11 +5,16 @@ import Loading from "../components/Loading";
 import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
 import { Dispatch, SetStateAction } from "react";
 import { ProductType } from "../types/ProductType";
+import SuccessBar from "../components/SuccessBar";
 
 function ListProducts({
   setSubmitSuccess,
+  submitSuccess,
+  sucessMessge,
 }: {
   setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
+  submitSuccess: boolean | null;
+  sucessMessge: string | null;
 }) {
   const { data, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
 
@@ -38,6 +43,12 @@ function ListProducts({
           </button>
         </div>
       </div>
+      {submitSuccess && (
+        <SuccessBar
+          message={sucessMessge}
+          setSubmitSuccess={setSubmitSuccess}
+        />
+      )}
       <form
         id="products"
         className="w-full flex flex-wrap py-4"

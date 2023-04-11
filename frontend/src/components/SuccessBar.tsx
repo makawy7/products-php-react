@@ -1,6 +1,14 @@
-export default function SuccessBar() {
+import { Dispatch, SetStateAction } from "react";
+
+export default function SuccessBar({
+  message,
+  setSubmitSuccess,
+}: {
+  message: string | null;
+  setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
+}) {
   return (
-    <div className="rounded-md bg-green-50 p-4 mt-8">
+    <div className="rounded-md bg-green-50 p-4">
       <div className="flex">
         <div className="flex-shrink-0">
           <svg
@@ -17,12 +25,13 @@ export default function SuccessBar() {
         </div>
         <div className="ml-3">
           <p className="text-sm leading-5 font-medium text-green-800">
-            product added successfully
+            {message}
           </p>
         </div>
         <div className="ml-auto pl-3">
           <div className="-mx-1.5 -my-1.5">
             <button
+              onClick={() => setSubmitSuccess(null)}
               type="button"
               className="inline-flex rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:bg-green-100 transition ease-in-out duration-150"
               aria-label="Dismiss"
