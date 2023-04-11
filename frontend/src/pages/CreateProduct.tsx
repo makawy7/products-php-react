@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ProductFields } from "../types/ProductFields";
+import SuccessBar from "../components/SuccessBar";
+import ErrorBar from "../components/ErrorBar";
+
 import { CreateProductErrors } from "../types/CreateProductErrors";
 import { API_BASE_URL, ADD_PRODUCT } from "../constants/api";
 import { validateProductInputs } from "../utils/validateProductInputs";
@@ -39,19 +42,20 @@ function CreateProduct() {
     width: null,
     length: null,
   });
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<boolean | null>(null);
+  const [errorMessge, setErrorMessage] = useState<string | null>(null);
 
-  // console.log(Inputs);
-  console.log(errors);
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (validateProductInputs(Inputs, setErrors)) {
-      // submitProduct();
-      console.log("submit");
+      submitProduct();
     }
   };
 
   const submitProduct = async () => {
+    setLoading(true);
     const res = await fetch(API_BASE_URL + ADD_PRODUCT, {
       method: "POST",
       headers: {
@@ -60,7 +64,13 @@ function CreateProduct() {
       body: JSON.stringify(Inputs),
     });
     const data = await res.json();
-    console.log(data);
+    if (res.status === 201) {
+      setSubmitError(false);
+    } else {
+      setErrorMessage(data?.error);
+      setSubmitError(true);
+    }
+    setLoading(false);
   };
   return (
     <form action="#" method="POST">
@@ -79,6 +89,9 @@ function CreateProduct() {
           </div>
         </div>
         <div className="mt-6 sm:mt-5">
+          {submitError && (
+            <ErrorBar message={errorMessge} setSubmitError={setSubmitError} />
+          )}
           <Sku setInputs={setInputs} {...Inputs} errors={errors} />
           <Name setInputs={setInputs} {...Inputs} errors={errors} />
           <Price setInputs={setInputs} {...Inputs} errors={errors} />
@@ -105,7 +118,7 @@ function CreateProduct() {
               type="submit"
               className="inline-flex items-center justify-center py-2 px-4 border border-transparent leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50"
             >
-              <Circle />
+              {loading && <Circle />}
               <span>Submit</span>
             </button>
           </span>
