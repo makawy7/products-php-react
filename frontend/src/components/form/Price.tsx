@@ -1,4 +1,19 @@
-export default function Price() {
+import { Dispatch, SetStateAction, ChangeEvent } from "react";
+import { ProductFields } from "../../types/ProductFields";
+
+export default function Price({
+  setInputs,
+  price,
+}: {
+  setInputs: Dispatch<SetStateAction<ProductFields>>;
+  price: string
+}) {
+  const priceChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputs((prev: ProductFields) => ({
+      ...prev,
+      price: e.target.value,
+    }));
+  };
   return (
     <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
       <label
@@ -9,6 +24,8 @@ export default function Price() {
       </label>
       <div className="mt-1 sm:mt-0 sm:col-span-2">
         <input
+          onChange={priceChange}
+          value={price ?? ""}
           id="price"
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />

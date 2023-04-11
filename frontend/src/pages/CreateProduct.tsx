@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
+import { ProductFields } from "../types/ProductFields";
 import {
   Book,
   Dvd,
@@ -13,6 +14,19 @@ import Circle from "../components/Circle";
 
 function CreateProduct() {
   const [type, setType] = useState("");
+  const [Inputs, setInputs] = useState<ProductFields>({
+    sku: "",
+    name: "",
+    price: "",
+    type: "",
+    weight: "",
+    size: "",
+    height: "",
+    width: "",
+    length: "",
+  });
+
+  // console.log(Inputs);
   return (
     <form action="#" method="POST">
       <div>
@@ -30,13 +44,15 @@ function CreateProduct() {
           </div>
         </div>
         <div className="mt-6 sm:mt-5">
-          <Sku />
-          <Name />
-          <Price />
-          <Type type={type} setType={setType} />
-          {type === "dvd" && <Dvd />}
-          {type === "furniture" && <Furniture />}
-          {type === "book" && <Book />}
+          <Sku setInputs={setInputs} {...Inputs} />
+          <Name setInputs={setInputs} {...Inputs} />
+          <Price setInputs={setInputs} {...Inputs} />
+          <Type type={type} setType={setType} setInputs={setInputs} />
+          {type === "dvd" && <Dvd setInputs={setInputs} {...Inputs} />}
+          {type === "furniture" && (
+            <Furniture setInputs={setInputs} {...Inputs} />
+          )}
+          {type === "book" && <Book setInputs={setInputs} {...Inputs} />}
         </div>
         <div className="mt-5 text-right">
           <span className="inline-flex rounded-md shadow-sm ">

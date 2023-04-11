@@ -1,14 +1,26 @@
 import { Dispatch, ChangeEvent, SetStateAction } from "react";
+import { ProductFields } from "../../types/ProductFields";
 
 export default function Type({
   type,
   setType,
+  setInputs,
 }: {
   type: string;
   setType: Dispatch<SetStateAction<string>>;
+  setInputs: Dispatch<SetStateAction<ProductFields>>;
 }) {
   const typeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setType(e.target.value);
+    setInputs((prev: ProductFields) => ({
+      ...prev,
+      type: e.target.value,
+      weight: "",
+      height: "",
+      width: "",
+      length: "",
+      size: "",
+    }));
   };
   return (
     <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
@@ -31,4 +43,3 @@ export default function Type({
     </div>
   );
 }
-
