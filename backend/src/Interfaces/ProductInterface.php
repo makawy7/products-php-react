@@ -1,5 +1,6 @@
 <?php
 
+namespace Abdallah\Scanditask\Interfaces;
 
 interface ProductInterface
 {

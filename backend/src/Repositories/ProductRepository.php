@@ -1,5 +1,9 @@
 <?php
 
+namespace Abdallah\Scanditask\Repositories;
+
+use Abdallah\Scanditask\Interfaces\ProductInterface;
+use Abdallah\Scanditask\Database\DatabaseConnection;
 
 class ProductRepository implements ProductInterface
 {
@@ -24,7 +28,13 @@ class ProductRepository implements ProductInterface
         LEFT JOIN books ON products.id = books.product_id
         LEFT JOIN furniture ON products.id = furniture.product_id");
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        
+        return array_map(function ($row) {
+            return array_filter($row, function ($value) {
+                return $value !== null;
+            });
+        }, $data);
     }
 
     function createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length)

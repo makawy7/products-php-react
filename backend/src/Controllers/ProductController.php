@@ -1,5 +1,9 @@
 <?php
 
+namespace Abdallah\Scanditask\Controllers;
+
+use Abdallah\Scanditask\Interfaces\ProductInterface;
+
 class ProductController
 {
     private $productRepository;
@@ -13,7 +17,7 @@ class ProductController
     {
         http_response_code($statusCode);
         header('Content-Type: application/json');
-        return json_encode($data);
+        echo json_encode($data);
     }
 
     public function getAllProducts()

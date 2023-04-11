@@ -1,5 +1,5 @@
 <?php
-
+namespace Abdallah\Scanditask\Database;
 /**
  * class DatabaseConnection
  * 
@@ -20,7 +20,7 @@ class DatabaseConnection
     public function __construct($host, $dbname, $username, $password)
     {
         try {
-            $this->pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            $this->pdo = new \PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         } catch (\PDOException $e) {
             die($e->getMessage());
         }

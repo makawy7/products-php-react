@@ -1,5 +1,7 @@
 <?php
 
+namespace Abdallah\Scanditask\Router;
+
 class Router
 {
     private $routes = [];
