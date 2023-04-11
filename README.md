@@ -1,1 +1,0 @@
-## Simple Products System With PHP RESTful API and React
