@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import SingleProduct from "../components/SingleProduct";
 import useFetch from "../hooks/useFetch";
+import Loading from "../components/Loading";
 import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
 
 function ListProducts() {
-  const { data, error, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
+  const { data, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
-  
+
   return (
     <>
       <div className="flex flex-wrap items-center ">
@@ -37,12 +38,9 @@ function ListProducts() {
         action="./deleteproduct"
         method="post"
       >
-        <SingleProduct />
-        <SingleProduct />
-        <SingleProduct />
-        <SingleProduct />
-        <SingleProduct />
-        <SingleProduct />
+        {data.map((product) => (
+          <SingleProduct key={product.id} {...product} />
+        ))}
 
         <small id="check_warning" className="text-red-600 hidden">
           Please choose at least one product to delete
