@@ -3,7 +3,7 @@ import SingleProduct from "../components/SingleProduct";
 import useFetch from "../hooks/useFetch";
 import Loading from "../components/Loading";
 import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ProductType } from "../types/ProductType";
 import SuccessBar from "../components/SuccessBar";
 
@@ -17,10 +17,21 @@ function ListProducts({
   sucessMessge: string | null;
 }) {
   const { data, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
+  const [checked, setChecked] = useState<Array<Number>>([]);
 
   if (loading) {
     return <Loading />;
   }
+
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = Number(e.target.value);
+    if (e.target.checked) {
+      setChecked([...checked, id]);
+    } else {
+      setChecked(checked.filter((item) => item !== id));
+    }
+  };
+
 
   return (
     <>
@@ -56,7 +67,11 @@ function ListProducts({
         method="post"
       >
         {data.map((product: ProductType) => (
-          <SingleProduct key={product.id} {...product} />
+          <SingleProduct
+            key={product.id}
+            {...product}
+            handleCheck={handleCheck}
+          />
         ))}
 
         <small id="check_warning" className="text-red-600 hidden">
