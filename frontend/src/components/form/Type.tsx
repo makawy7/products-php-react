@@ -42,6 +42,9 @@ export default function Type({
           <option value="furniture">Furniture</option>
           <option value="book">Book</option>
         </select>
+        {errors.type && (
+          <div className="mt-1 text-xs text-red-600 ">{errors.type}</div>
+        )}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export default function Price({
   errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
-  price: string
+  price: string;
   errors: CreateProductErrors;
 }) {
   const priceChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +32,9 @@ export default function Price({
           id="price"
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />
-        <div className="text-xs text-red-600 hidden">
-          Please enter a valid Price.
-        </div>
+        {errors.price && (
+          <div className="mt-1 text-xs text-red-600 ">{errors.price}</div>
+        )}
       </div>
     </div>
   );

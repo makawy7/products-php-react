@@ -33,9 +33,9 @@ export default function Book({
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />
 
-        <div className="text-xs text-red-600 hidden">
-          Please enter a valid weight.
-        </div>
+        {errors.weight && (
+          <div className="mt-1 text-xs text-red-600 ">{errors.weight}</div>
+        )}
       </div>
     </div>
   );

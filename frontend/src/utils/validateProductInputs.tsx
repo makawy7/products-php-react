@@ -56,7 +56,7 @@ export const validateProductInputs = (
   if (Inputs.type === "") {
     setErrors((prev: CreateProductErrors) => ({
       ...prev,
-      type: "Type is required",
+      type: "Please choose product type",
     }));
     failedValidation = true;
   } else if (!["dvd", "book", "furniture"].includes(Inputs.type)) {

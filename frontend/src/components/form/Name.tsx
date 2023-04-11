@@ -27,9 +27,7 @@ export default function Name({
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />
         {errors.name && (
-          <div className="mt-1 text-xs text-red-600 ">
-            Please enter a valid Name.
-          </div>
+          <div className="mt-1 text-xs text-red-600 ">{errors.name}</div>
         )}
       </div>
     </div>

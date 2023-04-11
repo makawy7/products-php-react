@@ -10,9 +10,9 @@ export default function Furniture({
   errors,
 }: {
   setInputs: Dispatch<SetStateAction<ProductFields>>;
-  height: string
-  width: string
-  length: string
+  height: string;
+  width: string;
+  length: string;
   errors: CreateProductErrors;
 }) {
   const heightChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +49,9 @@ export default function Furniture({
             id="height"
             className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
           />
-          <div className="text-xs text-red-600 hidden">
-            Please enter a valid height.
-          </div>
+          {errors.height && (
+            <div className="mt-1 text-xs text-red-600 ">{errors.height}</div>
+          )}
         </div>
       </div>
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
@@ -68,9 +68,9 @@ export default function Furniture({
             id="width"
             className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
           />
-          <div className="text-xs text-red-600 hidden">
-            Please enter a valid width.
-          </div>
+          {errors.width && (
+            <div className="mt-1 text-xs text-red-600 ">{errors.width}</div>
+          )}
         </div>
       </div>
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
@@ -87,9 +87,9 @@ export default function Furniture({
             id="length"
             className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
           />
-          <div className="text-xs text-red-600 hidden">
-            Please enter a valid length.
-          </div>
+          {errors.length && (
+            <div className="mt-1 text-xs text-red-600 ">{errors.length}</div>
+          )}
         </div>
       </div>
     </>

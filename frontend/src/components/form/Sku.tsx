@@ -26,9 +26,9 @@ export default function Sku({
           id="sku"
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         />
-        <div className="mt-1 text-xs text-red-600 hidden">
-          Please enter a valid SKU.
-        </div>
+        {errors.sku && (
+          <div className="mt-1 text-xs text-red-600 ">{errors.sku}</div>
+        )}
       </div>
     </div>
   );
