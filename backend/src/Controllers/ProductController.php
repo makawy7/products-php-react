@@ -5,34 +5,69 @@ namespace Abdallah\Scanditask\Controllers;
 use Abdallah\Scanditask\Interfaces\ProductInterface;
 use Abdallah\Scanditask\Validators\Validator;
 
+/**
+ * ProductController class
+ * 
+ * Represents a controller for products.
+ */
 class ProductController
 {
+    /**
+     * @var ProductInterface $productRepository An instance of a class that implements ProductInterface
+     */
     private $productRepository;
 
+    /**
+     * ProductController constructor
+     *
+     * @param ProductInterface $productRepository An instance of a class that implements ProductInterface
+     */
     public function __construct(ProductInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
 
-    public function sendJsonResponse($data, $statusCode = 200)
+    /**
+     * sendJsonResponse function
+     * Sends a JSON response with the provided data and status code
+     *
+     * @param array $data The data to be encoded to JSON
+     * @param int $statusCode The HTTP status code of the response (default: 200)
+     * @return void
+     */
+
+    public function sendJsonResponse($data, $statusCode = 200): void
     {
         http_response_code($statusCode);
         header('Content-Type: application/json');
         echo json_encode($data);
     }
 
-    public function getAllProducts()
+    /**
+     * getAllProducts function
+     * Retrieves all products and returns a JSON response
+     * @return void
+     */
+
+    public function getAllProducts(): void
     {
         $products = $this->productRepository->getAllProducts();
 
         if (empty($products)) {
-            return $this->sendJsonResponse(['error' => 'No products found'], 404);
+            $this->sendJsonResponse(['error' => 'No products found'], 404);
         }
 
-        return $this->sendJsonResponse($products);
+        $this->sendJsonResponse($products);
     }
 
-    public function createProduct()
+    /**
+     * createProduct function
+     * Creates a new product and returns a JSON response
+     *
+     * @return void
+     */
+
+    public function createProduct(): void
     {
         $inputData = json_decode(file_get_contents('php://input'), true);
         // get inputs
@@ -51,14 +86,14 @@ class ProductController
             Validator::validateProductData($type, $sku, $name, $price, $size, $weight, $height, $width, $length);
             try {
                 $product = $this->productRepository->createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length);
-                return $this->sendJsonResponse($product, 201);
+                $this->sendJsonResponse($product, 201);
             } catch (\Exception $e) {
                 // SKU already exists
-                return $this->sendJsonResponse(['error' => $e->getMessage()], 400);
+                $this->sendJsonResponse(['error' => $e->getMessage()], 400);
             }
         } catch (\InvalidArgumentException $e) {
             // invalid inputs
-            return $this->sendJsonResponse(['error' => $e->getMessage()], 400);
+            $this->sendJsonResponse(['error' => $e->getMessage()], 400);
         }
     }
 }

@@ -5,15 +5,35 @@ namespace Abdallah\Scanditask\Repositories;
 use Abdallah\Scanditask\Interfaces\ProductInterface;
 use Abdallah\Scanditask\Database\DatabaseConnection;
 
+/**
+ * class ProductRepository
+ * 
+ * Represents a repository for products.
+ */
 class ProductRepository implements ProductInterface
-{
+{   
+    /**
+     * @var \PDO The PDO instance.
+     */
     private $pdo;
 
+    /**
+     * ProductRepository constructor
+     *
+     * @param DatabaseConnection $db
+     */
     public function __construct(DatabaseConnection $db)
     {
         $this->pdo = $db->getPdo();
     }
-    public function getAllProducts()
+
+    /**
+     * getAllProducts function
+     * retrieves all products from the database
+     * @return array $products
+     */
+
+    public function getAllProducts(): array
     {
         $stmt = $this->pdo->query("
         SELECT 
@@ -37,7 +57,22 @@ class ProductRepository implements ProductInterface
         }, $products);
     }
 
-    function createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length)
+    /**
+     * createProduct function
+     * creates a new product in the database
+     * @param [string] $type
+     * @param [string] $sku
+     * @param [string] $name
+     * @param [float] $price
+     * @param [float] $size
+     * @param [float] $weight
+     * @param [float] $height
+     * @param [float] $width
+     * @param [float] $length
+     * @return array $product
+     */
+
+    function createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length): array
     {
 
         $stmt = $this->pdo->prepare("SELECT * FROM products WHERE sku = :sku");

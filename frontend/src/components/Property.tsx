@@ -7,7 +7,7 @@ interface PropertyProps {
 function Property({ name, value, unit }: PropertyProps) {
   return (
     <li>
-      {name}: {value + unit}
+      {name}: {value + " " + unit}
     </li>
   );
 }

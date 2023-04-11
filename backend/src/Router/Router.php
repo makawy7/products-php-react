@@ -2,11 +2,30 @@
 
 namespace Abdallah\Scanditask\Router;
 
+/**
+ * Router class
+ * 
+ * Represents a router.
+ */
 class Router
 {
+    /**
+     * The array of routes that have been added to the router.
+     *
+     * @var array
+     */
     private $routes = [];
 
-    public function addRoute($method, $pattern, $callback)
+    /**
+     * Adds a new route to the router.
+     *
+     * @param string $method The HTTP method (e.g. GET, POST)
+     * @param string $pattern The URI pattern to match (e.g. /api/products)
+     * @param callable $callback The callback function to call when the route is matched
+     * @return void
+     */
+
+    public function addRoute($method, $pattern, $callback): void
     {
         $this->routes[] = [
             'method' => $method,
@@ -15,6 +34,13 @@ class Router
         ];
     }
 
+    /**
+     * Dispatches the current HTTP request to the appropriate callback function based on the HTTP method and URI pattern.
+     *
+     * @param string $method The HTTP method (e.g. GET, POST)
+     * @param string $uri The URI of the current request
+     * @return void
+     */
     public function dispatch($method, $uri)
     {
         foreach ($this->routes as $route) {

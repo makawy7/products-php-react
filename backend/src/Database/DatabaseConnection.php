@@ -6,7 +6,10 @@ namespace Abdallah\Scanditask\Database;
  * Represents a connection to a MySQL database.
  */
 class DatabaseConnection
-{
+{   
+    /**
+     * @var \PDO The PDO instance.
+     */
     private $pdo;
 
     /**
@@ -30,7 +33,7 @@ class DatabaseConnection
      *
      * @return \PDO The PDO instance.
      */
-    public function getPdo()
+    public function getPdo(): \PDO
     {
         return $this->pdo;
     }

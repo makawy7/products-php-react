@@ -2,9 +2,30 @@
 
 namespace Abdallah\Scanditask\Validators;
 
+/**
+ * Validator class
+ * 
+ * Represents a validator class.
+ */
 class Validator
-{
-    public static function validateProductData($type, $sku, $name, $price, $size, $weight, $height, $width, $length)
+{   
+    /**
+     * validateProductData function
+     * Validates the product data
+     *
+     * @param [string] $type
+     * @param [string] $sku
+     * @param [string] $name
+     * @param [float] $price
+     * @param [float] $size
+     * @param [float] $weight
+     * @param [float] $height
+     * @param [float] $width
+     * @param [float] $length
+     * @return void
+     */
+
+    public static function validateProductData($type, $sku, $name, $price, $size, $weight, $height, $width, $length): void
     {
         if (empty($sku) || empty($name) || empty($price) || empty($type)) {
             throw new \InvalidArgumentException('Missing mandatory parameter: SKU, Name, Price and Type are required');
