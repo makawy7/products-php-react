@@ -28,17 +28,26 @@ class ProductRepository implements ProductInterface
         LEFT JOIN books ON products.id = books.product_id
         LEFT JOIN furniture ON products.id = furniture.product_id");
 
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        
-        return array_map(function ($row) {
-            return array_filter($row, function ($value) {
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return array_map(function ($product) {
+            return array_filter($product, function ($value) {
                 return $value !== null;
             });
-        }, $data);
+        }, $products);
     }
 
     function createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length)
     {
+
+        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE sku = :sku");
+        $stmt->execute(['sku' => $sku]);
+        $existingProduct = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if ($existingProduct) {
+            throw new \Exception("The SKU '{$sku}' has already been taken.");
+        }
+
         $this->pdo->beginTransaction();
 
         $stmt = $this->pdo->prepare("
@@ -54,41 +63,45 @@ class ProductRepository implements ProductInterface
 
         $productId = $this->pdo->lastInsertId();
 
-        switch ($type) {
-            case 'dvd':
-                $stmt = $this->pdo->prepare("
-                INSERT INTO dvds (product_id, size_mb)
-                VALUES (:product_id, :size_mb)");
+        $typeMappings = [
+            'dvd' => ['table' => 'dvds', 'attributes' => ['size_mb' => $size]],
+            'book' => ['table' => 'books', 'attributes' => ['weight_kg' => $weight]],
+            'furniture' => ['table' => 'furniture', 'attributes' => ['height' => $height, 'width' => $width, 'length' => $length]],
+        ];
 
-                $stmt->execute([
-                    'product_id' => $productId,
-                    'size_mb' => $size
-                ]);
-                break;
-            case 'book':
-                $stmt = $this->pdo->prepare("
-                INSERT INTO books (product_id, weight_kg)
-                VALUES (:product_id, :weight_kg)");
+        $mapping = $typeMappings[$type];
 
-                $stmt->execute([
-                    'product_id' => $productId,
-                    'weight_kg' => $weight
-                ]);
-                break;
-            case 'furniture':
-                $stmt = $this->pdo->prepare("
-                INSERT INTO furniture (product_id, height, width, length)
-                VALUES (:product_id, :height, :width, :length)");
+        $columns = implode(', ', array_keys($mapping['attributes']));
+        $values = ':' . implode(', :', array_keys($mapping['attributes']));
+        $sql = "INSERT INTO {$mapping['table']} (product_id, {$columns}) VALUES (:product_id, {$values})";
 
-                $stmt->execute([
-                    'product_id' => $productId,
-                    'height' => $height,
-                    'width' => $width,
-                    'length' => $length
-                ]);
-                break;
-        }
+        $stmt = $this->pdo->prepare($sql);
+        $attributes = array_merge(['product_id' => $productId], $mapping['attributes']);
+        $stmt->execute($attributes);
 
         $this->pdo->commit();
+
+        // fetch the created product
+        $stmt = $this->pdo->prepare("
+            SELECT 
+                products.*,
+                dvds.size_mb,
+                books.weight_kg,
+                furniture.height,
+                furniture.width,
+                furniture.length
+            FROM products
+            LEFT JOIN dvds ON products.id = dvds.product_id
+            LEFT JOIN books ON products.id = books.product_id
+            LEFT JOIN furniture ON products.id = furniture.product_id
+            WHERE products.id = :product_id");
+
+        $stmt->execute(['product_id' => $productId]);
+
+        $product = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return array_filter($product, function ($value) {
+            return $value !== null;
+        });
     }
 }

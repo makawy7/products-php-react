@@ -6,8 +6,8 @@ class Validator
 {
     public static function validateProductData($type, $sku, $name, $price, $size, $weight, $height, $width, $length)
     {
-        if (empty($sku) || empty($name) || empty($price)) {
-            throw new \InvalidArgumentException('Missing mandatory parameter: SKU, Name, and Price are required');
+        if (empty($sku) || empty($name) || empty($price) || empty($type)) {
+            throw new \InvalidArgumentException('Missing mandatory parameter: SKU, Name, Price and Type are required');
         }
 
         $validTypes = ['dvd', 'book', 'furniture'];

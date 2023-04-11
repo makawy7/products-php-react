@@ -28,7 +28,7 @@ class DatabaseConnection
     /**
      * Returns the PDO object
      *
-     * @return PDO The PDO instance.
+     * @return \PDO The PDO instance.
      */
     public function getPdo()
     {

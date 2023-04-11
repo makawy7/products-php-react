@@ -17,11 +17,11 @@ $productController = new ProductController($productRepository);
 // set routes
 $router = new Router();
 $router->addRoute('GET', '#^/api/products$#', [$productController, 'getAllProducts']);
-// $router->addRoute('GET', '#^/api/users/(\d+)$#', [ProductController::class, $method]);
+$router->addRoute('POST', '#^/api/product/create$#', [$productController, 'createProduct']);
 
-// Get the request method and URI
+// get the request method and URI
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-// Dispatch the request
+// dispatch the request
 $router->dispatch($method, $uri);
