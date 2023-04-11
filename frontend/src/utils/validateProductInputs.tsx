@@ -81,18 +81,18 @@ export const validateProductInputs = (
         size: "Size is required",
       }));
       failedValidation = true;
+    } else if (isNaN(Number(Inputs.size))) {
+      setErrors((prev: CreateProductErrors) => ({
+        ...prev,
+        size: "Size must be a number",
+      }));
+      failedValidation = true;
+    } else {
+      setErrors((prev: CreateProductErrors) => ({
+        ...prev,
+        size: null,
+      }));
     }
-  } else if (isNaN(Number(Inputs.size))) {
-    setErrors((prev: CreateProductErrors) => ({
-      ...prev,
-      size: "Size must be a number",
-    }));
-    failedValidation = true;
-  } else {
-    setErrors((prev: CreateProductErrors) => ({
-      ...prev,
-      size: null,
-    }));
   }
 
   // furniture

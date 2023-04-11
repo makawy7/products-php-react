@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ProductFields } from "../types/ProductFields";
-import SuccessBar from "../components/SuccessBar";
 import ErrorBar from "../components/ErrorBar";
-
+import { useNavigate } from "react-router-dom";
 import { CreateProductErrors } from "../types/CreateProductErrors";
 import { API_BASE_URL, ADD_PRODUCT } from "../constants/api";
 import { validateProductInputs } from "../utils/validateProductInputs";
@@ -19,6 +18,7 @@ import {
 import Circle from "../components/Circle";
 
 function CreateProduct() {
+  const navigate = useNavigate();
   const [type, setType] = useState("");
   const [Inputs, setInputs] = useState<ProductFields>({
     sku: "",
@@ -48,7 +48,6 @@ function CreateProduct() {
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     if (validateProductInputs(Inputs, setErrors)) {
       submitProduct();
     }
@@ -66,12 +65,15 @@ function CreateProduct() {
     const data = await res.json();
     if (res.status === 201) {
       setSubmitError(false);
+      navigate("/");
     } else {
       setErrorMessage(data?.error);
       setSubmitError(true);
     }
     setLoading(false);
   };
+
+  console.log(Inputs);
   return (
     <form action="#" method="POST">
       <div>
