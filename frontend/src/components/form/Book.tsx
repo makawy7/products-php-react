@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ChangeEvent, useState } from "react";
+import { Dispatch, SetStateAction, ChangeEvent } from "react";
 import { ProductFields } from "../../types/ProductFields";
 import { CreateProductErrors } from "../../types/CreateProductErrors";
 

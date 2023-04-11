@@ -5,6 +5,8 @@ import ErrorBar from "../components/ErrorBar";
 import { useNavigate } from "react-router-dom";
 import { CreateProductErrors } from "../types/CreateProductErrors";
 import { API_BASE_URL, ADD_PRODUCT } from "../constants/api";
+import { defaultInputs } from "../constants/defaultInputs";
+import { defaultInputErrors } from "../constants/defaultInputErrors";
 import { validateProductInputs } from "../utils/validateProductInputs";
 import {
   Book,
@@ -20,28 +22,8 @@ import Circle from "../components/Circle";
 function CreateProduct() {
   const navigate = useNavigate();
   const [type, setType] = useState("");
-  const [Inputs, setInputs] = useState<ProductFields>({
-    sku: "",
-    name: "",
-    price: "",
-    type: "",
-    weight: "",
-    size: "",
-    height: "",
-    width: "",
-    length: "",
-  });
-  const [errors, setErrors] = useState<CreateProductErrors>({
-    sku: null,
-    name: null,
-    price: null,
-    type: null,
-    weight: null,
-    size: null,
-    height: null,
-    width: null,
-    length: null,
-  });
+  const [Inputs, setInputs] = useState<ProductFields>(defaultInputs);
+  const [errors, setErrors] = useState<CreateProductErrors>(defaultInputErrors);
   const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState<boolean | null>(null);
   const [errorMessge, setErrorMessage] = useState<string | null>(null);
