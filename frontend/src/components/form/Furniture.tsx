@@ -1,4 +1,4 @@
-function Furniture() {
+export default function Furniture() {
   return (
     <>
       <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
@@ -55,5 +55,3 @@ function Furniture() {
     </>
   );
 }
-
-export default Furniture;

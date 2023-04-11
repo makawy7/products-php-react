@@ -15,7 +15,7 @@ class ProductController
     /**
      * @var ProductInterface $productRepository An instance of a class that implements ProductInterface
      */
-    private $productRepository;
+    private ProductInterface $productRepository;
 
     /**
      * ProductController constructor

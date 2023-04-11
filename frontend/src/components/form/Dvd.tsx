@@ -1,4 +1,4 @@
-function Dvd() {
+export default function Dvd() {
   return (
     <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-gray-200 sm:pt-5">
       <label htmlFor="size" className="block text-sm font-medium text-gray-700">
@@ -16,5 +16,3 @@ function Dvd() {
     </div>
   );
 }
-
-export default Dvd;
