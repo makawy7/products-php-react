@@ -1,4 +1,9 @@
 <?php
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
 // autoload classes
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -22,6 +27,12 @@ $router->addRoute('POST', '#^/api/product/create$#', [$productController, 'creat
 // get the request method and URI
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
+
+// handle preflight request
+if ($method === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 // dispatch the request
 $router->dispatch($method, $uri);

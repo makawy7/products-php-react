@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import SingleProduct from "../components/SingleProduct";
+import useFetch from "../hooks/useFetch";
+import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
 
 function ListProducts() {
+  const { data, error, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
   return (
     <>
       <div className="flex flex-wrap items-center ">
