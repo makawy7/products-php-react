@@ -54,6 +54,7 @@ function CreateProduct({
     if (res.status === 201) {
       setSubmitError(false);
       setSubmitSuccess(true);
+      setSuccessMessage(data?.success);
       navigate("/");
     } else {
       setErrorMessage(data?.error);
