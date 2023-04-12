@@ -1,5 +1,6 @@
-## Product CRUD With PHP RESTful API and React
+# Product CRUD With PHP RESTful API and React
 
+## Project tree
 ```
 scandiweb-task
 ├─ backend
