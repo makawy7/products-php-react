@@ -65,7 +65,7 @@ function CreateProduct({
 
   console.log(Inputs);
   return (
-    <form action="#" method="POST">
+    <form id="product_form">
       <div>
         <div className="flex flex-wrap items-center">
           <div className="w-full sm:w-1/2 text-left">
@@ -111,7 +111,16 @@ function CreateProduct({
               className="inline-flex items-center justify-center py-2 px-4 border border-transparent leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50"
             >
               {loading && <Circle />}
-              <span>Submit</span>
+              <span>Save</span>
+            </button>
+          </span>
+          <span className="inline-flex rounded-md shadow-sm ml-1">
+            <button
+              onClick={() => navigate("/")}
+              type="submit"
+              className="inline-flex items-center justify-center py-2 px-4 border border-transparent leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50"
+            >
+              <span>Cancel</span>
             </button>
           </span>
         </div>

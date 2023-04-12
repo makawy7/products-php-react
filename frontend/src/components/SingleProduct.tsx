@@ -1,6 +1,7 @@
 import Property from "./Property";
 import { ProductType } from "../types/ProductType";
 import { ChangeEvent } from "react";
+
 function SingleProduct({
   id,
   type,
@@ -27,16 +28,19 @@ function SingleProduct({
         />
       </div>
       <div>
-        <h3 className="text-xl font-bold text-center">{name}</h3>
-        <ul className="list-none mt-1 mb-4 text-center">
-          <li>SKU: {sku}</li>
-          <li>Type: {type}</li>
-          <li>Price ${price}</li>
-          {weight_kg && <Property name="Weight" value={weight_kg} unit="kg" />}
+        <ul className="list-none mt-1 mb-4 text-center font-bold">
+          <li>{name}</li>
+          <li>{sku}</li>
+          <li>{price} $</li>
+          {weight_kg && <Property name="Weight" value={weight_kg} unit="KG" />}
           {size_mb && <Property name="Size" value={size_mb} unit="MB" />}
-          {height && <Property name="Height" value={height} unit="cm" />}
-          {width && <Property name="Width" value={width} unit="cm" />}
-          {length && <Property name="Length" value={length} unit="cm" />}
+          {height && width && width && (
+            <Property
+              name="Dimensions"
+              value={`${height}x${width}x${length}`}
+              unit=""
+            />
+          )}
         </ul>
       </div>
     </div>

@@ -1,6 +1,6 @@
 interface PropertyProps {
   name: string;
-  value: number;
+  value: number | string;
   unit: string;
 }
 

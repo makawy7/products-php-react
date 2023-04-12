@@ -34,13 +34,13 @@ export default function Type({
         <select
           onChange={typeChange}
           defaultValue={type}
-          id="type"
+          id="productType"
           className="shadow-sm border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm rounded-md h-7"
         >
           <option value=""></option>
-          <option value="dvd">DVD</option>
-          <option value="furniture">Furniture</option>
-          <option value="book">Book</option>
+          <option id="DVD" value="dvd">DVD</option>
+          <option id="Furniture" value="furniture">Furniture</option>
+          <option id="Book" value="book">Book</option>
         </select>
         {errors.type && (
           <div className="mt-1 text-xs text-red-600 ">{errors.type}</div>
