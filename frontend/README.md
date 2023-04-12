@@ -28,7 +28,6 @@ This frontend application is built with React and TypeScript. It serves as the u
 
 ```int
 REACT_APP_API_BASE_URL=http://localhost:1000/api
-
 ```
 
 5. Make sure the backend API is up and running. (Follow the instructions in the backend API repository's README.md)

@@ -1,6 +1,6 @@
-# Scanditask API
+# Products API
 
-This is the API for the Scandiweb evaluation project, which provides an interface to manage products. The API is built using PHP and allows you to create, read, and delete products.
+This is the API provides an interface to manage products. The API is built using PHP and allows you to create, read, and delete products.
 
 ## Table of Contents
 

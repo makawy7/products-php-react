@@ -1,4 +1,4 @@
-# Product CRUD With PHP RESTful API and React
+# Products Management With PHP RESTful API and React
 
 ## Project tree
 ```
