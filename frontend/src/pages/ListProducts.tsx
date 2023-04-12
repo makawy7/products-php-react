@@ -11,7 +11,6 @@ import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { ProductType } from "../types/ProductType";
 import SuccessBar from "../components/SuccessBar";
 import ErrorBar from "../components/ErrorBar";
-import { isArray } from "util";
 
 function ListProducts({
   setSubmitSuccess,
@@ -52,13 +51,15 @@ function ListProducts({
       body: JSON.stringify({ ids: checked }),
     });
     const data = await res.json();
-    console.log(data);
     if (res.status === 200) {
       setSubmitSuccess(true);
       setSuccessMessage(data?.success);
       setChecked([]);
+      // refetch data
+      fetchData();
     }
   };
+
   const submitDelete = () => {
     // check if there is at least one checked
     if (checked.length === 0) {

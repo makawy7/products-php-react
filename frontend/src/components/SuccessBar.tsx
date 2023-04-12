@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 export default function SuccessBar({
   message,
@@ -7,6 +7,13 @@ export default function SuccessBar({
   message: string | null;
   setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
 }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSubmitSuccess(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [setSubmitSuccess]);
+
   return (
     <div className="rounded-md bg-green-50 p-4">
       <div className="flex">

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 export default function ErrorBar({
   message,
@@ -7,6 +7,13 @@ export default function ErrorBar({
   message: string | null;
   setError: Dispatch<SetStateAction<boolean | null>>;
 }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setError(null);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [setError]);
+
   return (
     <div
       className="flex p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"

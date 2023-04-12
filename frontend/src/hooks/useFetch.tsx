@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { ProductType } from "../types/ProductType";
+
 function useFetch(url: string) {
   const [data, setData] = useState<Array<ProductType>>([]);
   const [loading, setLoading] = useState(true);
   const [noProductsError, setNoProductsError] = useState<boolean>(false);
 
-  async function fetchData() {
+  const fetchData = useCallback(async () => {
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +22,7 @@ function useFetch(url: string) {
       setLoading(false);
       setNoProductsError(false);
     }
-  }
+  }, [url]);
 
   return { data, loading, noProductsError, fetchData };
 }
