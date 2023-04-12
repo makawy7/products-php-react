@@ -11,7 +11,7 @@ use Abdallah\Scanditask\Database\DatabaseConnection;
  * Represents a repository for products.
  */
 class ProductRepository implements ProductInterface
-{   
+{
     /**
      * @var \PDO The PDO instance.
      */
@@ -138,5 +138,37 @@ class ProductRepository implements ProductInterface
         return array_filter($product, function ($value) {
             return $value !== null;
         });
+    }
+
+    /**
+     * deleteProducts function
+     * deletes products from the database
+     * @param [array] $ids
+     * @return void
+     */
+
+    public function deleteProducts($ids): void
+    {
+        $ids = array_map(function ($id) {
+            return (int) $id;
+        }, $ids);
+
+        $ids = implode(', ', $ids);
+
+        $this->pdo->beginTransaction();
+
+        $stmt = $this->pdo->prepare("DELETE FROM products WHERE id IN ({$ids})");
+        $stmt->execute();
+
+        $stmt = $this->pdo->prepare("DELETE FROM dvds WHERE product_id IN ({$ids})");
+        $stmt->execute();
+
+        $stmt = $this->pdo->prepare("DELETE FROM books WHERE product_id IN ({$ids})");
+        $stmt->execute();
+
+        $stmt = $this->pdo->prepare("DELETE FROM furniture WHERE product_id IN ({$ids})");
+        $stmt->execute();
+
+        $this->pdo->commit();
     }
 }

@@ -32,4 +32,13 @@ interface ProductInterface
      */
 
     public function createProduct($type, $sku, $name, $price, $size, $weight, $height, $width, $length): array;
+
+    /**
+     * deleteProducts function
+     *
+     * @param [array] $ids
+     * @return void
+     */
+
+    public function deleteProducts($ids): void;
 }

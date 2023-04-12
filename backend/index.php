@@ -29,6 +29,7 @@ $productController = new ProductController($productRepository);
 $router = new Router();
 $router->addRoute('GET', '#^/api/products$#', [$productController, 'getAllProducts']);
 $router->addRoute('POST', '#^/api/product/create$#', [$productController, 'createProduct']);
+$router->addRoute('DELETE', '#^/api/products/delete$#', [$productController, 'deleteProducts']);
 
 // get the request method and URI
 $method = $_SERVER['REQUEST_METHOD'];

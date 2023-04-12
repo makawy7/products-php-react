@@ -8,7 +8,7 @@ namespace Abdallah\Scanditask\Validators;
  * Represents a validator class.
  */
 class Validator
-{   
+{
     /**
      * validateProductData function
      * Validates the product data
@@ -52,6 +52,31 @@ class Validator
                     throw new \InvalidArgumentException('Missing mandatory parameter: Height, Width, and Length are required for Furniture');
                 }
                 break;
+        }
+    }
+
+    /**
+     * validateIds function
+     * Validates the product ids
+     *
+     * @param [array] $ids
+     * @return void
+     */
+
+    public static function validateIds($ids): void
+    {
+        if (empty($ids)) {
+            throw new \InvalidArgumentException('Missing mandatory parameter: Ids is required');
+        }
+
+        if (!is_array($ids)) {
+            throw new \InvalidArgumentException('Invalid parameter: Ids must be an array');
+        }
+
+        foreach ($ids as $id) {
+            if (!is_numeric($id)) {
+                throw new \InvalidArgumentException('Invalid parameter: Ids must be an array of integers');
+            }
         }
     }
 }

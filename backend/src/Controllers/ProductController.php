@@ -97,4 +97,27 @@ class ProductController
             $this->sendJsonResponse(['error' => $e->getMessage()], 400);
         }
     }
+
+    /**
+     * deleteProducts function
+     * Deletes products and returns a JSON response
+     *
+     * @return void
+     */
+    public function deleteProducts()
+    {
+        $inputData = json_decode(file_get_contents('php://input'), true);
+        // get inputs
+        $ids = $inputData['ids'] ?? null;
+
+        try {
+            // validate inputs
+            Validator::validateIds($ids);
+            $this->productRepository->deleteProducts($ids);
+            $this->sendJsonResponse(['success' => 'Products have been deleted.', 200]);
+        } catch (\InvalidArgumentException $e) {
+            // invalid inputs
+            $this->sendJsonResponse(['error' => $e->getMessage()], 400);
+        }
+    }
 }
