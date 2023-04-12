@@ -72,6 +72,8 @@ DB_PASSWORD=
 - Method: `DELETE`
 - URL: `/api/products/delete`
 - Payload:
+  - `ids`: Array of product ids to be deleted.
+- Payload example:
 
 ```json
 {
