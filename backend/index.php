@@ -12,6 +12,7 @@ header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 // autoload classes
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/config.php';
 
 use Abdallah\Scanditask\Router\Router;
 use Abdallah\Scanditask\Controllers\ProductController;
@@ -19,7 +20,11 @@ use Abdallah\Scanditask\Repositories\ProductRepository;
 use Abdallah\Scanditask\Database\DatabaseConnection;
 
 // database connection
-$databaseConnection = new DatabaseConnection('localhost', 'scanditask', 'root', '');
+$dbHost = isset($dotenv['DB_HOST']) ? $dotenv['DB_HOST'] : 'localhost';
+$dbName = isset($dotenv['DB_NAME']) ? $dotenv['DB_NAME'] : 'scanditask';
+$dbUser = isset($dotenv['DB_USER']) ? $dotenv['DB_USER'] : 'root';
+$dbPassword = isset($dotenv['DB_PASSWORD']) ? $dotenv['DB_PASSWORD'] : '';
+$databaseConnection = new DatabaseConnection($dbHost, $dbName, $dbUser, $dbPassword);
 
 // product repository and controller  
 $productRepository = new ProductRepository($databaseConnection);
