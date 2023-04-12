@@ -4,21 +4,16 @@ This is the API for the Scandiweb evaluation project, which provides an interfac
 
 ## Table of Contents
 
-- Installation
-  - fdsfs
-  - dfsfs
-- Database Schema
-- API Endpoints
-- License
-- Installation
-- Clone the repository to your local machine:
+- [Installation](#installation)
+- [Database Schema](#database-schema)
+- [API Endpoints](#api-endpoints)
 
 ## Installation
 
 1. Clone the repository to your local machine:
-   `git clone https://github.com/yourusername/abdallah-scanditask-api.git`
+   `git clone https://github.com/makawy7/products-php-react.git`
 2. Navigate to the project directory:
-   `cd abdallah-scanditask-api`
+   `cd products-php-react/backend`
 3. Install the dependencies using Composer:
    `composer install`
 4. Copy the .env.example file as .env and add the database details:
