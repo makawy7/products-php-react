@@ -5,6 +5,7 @@
 [Backend README](./backend/README.md)
 
 ## Project tree
+
 ```
 scandiweb-task
 ├─ backend
@@ -40,6 +41,8 @@ scandiweb-task
 │        ├─ ClassLoader.php
 │        └─ LICENSE
 ├─ frontend
+│  ├─ .env
+│  ├─ .env.example
 │  ├─ package-lock.json
 │  ├─ package.json
 │  ├─ public
