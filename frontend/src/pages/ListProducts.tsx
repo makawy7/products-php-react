@@ -2,26 +2,37 @@ import { Link } from "react-router-dom";
 import SingleProduct from "../components/SingleProduct";
 import useFetch from "../hooks/useFetch";
 import Loading from "../components/Loading";
-import { API_BASE_URL, GET_PRODUCTS } from "../constants/api";
-import { Dispatch, SetStateAction, useState } from "react";
+import {
+  API_BASE_URL,
+  GET_PRODUCTS,
+  MASS_DELETE_PRODUCTS,
+} from "../constants/api";
+import { Dispatch, SetStateAction, useState, useEffect } from "react";
 import { ProductType } from "../types/ProductType";
 import SuccessBar from "../components/SuccessBar";
+import ErrorBar from "../components/ErrorBar";
+import { isArray } from "util";
 
 function ListProducts({
   setSubmitSuccess,
+  setSuccessMessage,
   submitSuccess,
   sucessMessge,
 }: {
   setSubmitSuccess: Dispatch<SetStateAction<boolean | null>>;
+  setSuccessMessage: Dispatch<SetStateAction<string | null>>;
   submitSuccess: boolean | null;
   sucessMessge: string | null;
 }) {
-  const { data, loading } = useFetch(API_BASE_URL + GET_PRODUCTS);
+  const { data, loading, noProductsError, fetchData } = useFetch(
+    API_BASE_URL + GET_PRODUCTS
+  );
   const [checked, setChecked] = useState<Array<Number>>([]);
+  const [checkedError, setCheckedError] = useState<boolean | null>(false);
 
-  if (loading) {
-    return <Loading />;
-  }
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
     const id = Number(e.target.value);
@@ -32,7 +43,35 @@ function ListProducts({
     }
   };
 
+  const deleteProducts = async () => {
+    const res = await fetch(API_BASE_URL + MASS_DELETE_PRODUCTS, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids: checked }),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (res.status === 200) {
+      setSubmitSuccess(true);
+      setSuccessMessage(data?.success);
+      setChecked([]);
+    }
+  };
+  const submitDelete = () => {
+    // check if there is at least one checked
+    if (checked.length === 0) {
+      setCheckedError(true);
+    } else {
+      // submit delete request
+      deleteProducts();
+    }
+  };
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <>
       <div className="flex flex-wrap items-center ">
@@ -47,6 +86,7 @@ function ListProducts({
             ADD
           </Link>
           <button
+            onClick={submitDelete}
             id="delete-product-btn"
             className="py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out mr-2"
           >
@@ -54,6 +94,12 @@ function ListProducts({
           </button>
         </div>
       </div>
+      {checkedError && (
+        <ErrorBar
+          message="Please select at least one product"
+          setError={setCheckedError}
+        />
+      )}
       {submitSuccess && (
         <SuccessBar
           message={sucessMessge}
@@ -66,6 +112,11 @@ function ListProducts({
         action="./deleteproduct"
         method="post"
       >
+        {noProductsError && (
+          <div className="w-full text-center">
+            <h1 className="text-2xl font-bold">No products found</h1>
+          </div>
+        )}
         {data.map((product: ProductType) => (
           <SingleProduct
             key={product.id}
@@ -73,10 +124,6 @@ function ListProducts({
             handleCheck={handleCheck}
           />
         ))}
-
-        <small id="check_warning" className="text-red-600 hidden">
-          Please choose at least one product to delete
-        </small>
       </form>
     </>
   );

@@ -11,7 +11,7 @@ use Abdallah\Scanditask\Database\DatabaseConnection;
  * Represents a repository for products.
  */
 class ProductRepository implements ProductInterface
-{
+{   
     /**
      * @var \PDO The PDO instance.
      */

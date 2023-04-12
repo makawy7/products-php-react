@@ -17,6 +17,7 @@ function App() {
               element={
                 <ListProducts
                   setSubmitSuccess={setSubmitSuccess}
+                  setSuccessMessage={setSuccessMessage}
                   submitSuccess={submitSuccess}
                   sucessMessge={sucessMessge}
                 />

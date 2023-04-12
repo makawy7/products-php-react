@@ -54,7 +54,8 @@ class ProductController
         $products = $this->productRepository->getAllProducts();
 
         if (empty($products)) {
-            $this->sendJsonResponse(['error' => 'No products found'], 404);
+            $this->sendJsonResponse(['error' => 'No products found'], 200);
+            return;
         }
 
         $this->sendJsonResponse($products);

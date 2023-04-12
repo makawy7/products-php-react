@@ -82,7 +82,7 @@ function CreateProduct({
         </div>
         <div className="mt-6 sm:mt-5">
           {submitError && (
-            <ErrorBar message={errorMessge} setSubmitError={setSubmitError} />
+            <ErrorBar message={errorMessge} setError={setSubmitError} />
           )}
           <Sku setInputs={setInputs} {...Inputs} errors={errors} />
           <Name setInputs={setInputs} {...Inputs} errors={errors} />
