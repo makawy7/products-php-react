@@ -1,5 +1,9 @@
 # Products Management With PHP RESTful API and React
 
+[Frontend README](./frontend/README.md)
+
+[Backend README](./backend/README.md)
+
 ## Project tree
 ```
 scandiweb-task
