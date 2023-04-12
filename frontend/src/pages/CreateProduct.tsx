@@ -63,7 +63,6 @@ function CreateProduct({
     setLoading(false);
   };
 
-  console.log(Inputs);
   return (
     <form id="product_form">
       <div>

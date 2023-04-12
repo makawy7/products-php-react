@@ -1,4 +1,4 @@
-# Products Frontend
+# Products App
 
 This frontend application is built with React and TypeScript. It serves as the user interface for the Products API.
 
@@ -18,17 +18,25 @@ This frontend application is built with React and TypeScript. It serves as the u
 ## Installation
 
 1. Clone the repository to your local machine:
-`git clone https://github.com/makawy7/products-php-react.git`
+   `git clone https://github.com/makawy7/products-php-react.git`
 2. Navigate to the project directory:
-`cd products-php-react/frontend`
+   `cd products-php-react/frontend`
 3. Install the dependencies using npm:
-`npm install`
-4. Make sure the backend API is up and running. (Follow the instructions in the backend API repository's README.md)
+   `npm install`
+4. Copy the .env.example file as .env and update the API base URI:
+   `cp .env.example .env`
+
+```int
+REACT_APP_API_BASE_URL=http://localhost:1000/api
+
+```
+
+5. Make sure the backend API is up and running. (Follow the instructions in the backend API repository's README.md)
 
 ## Usage
 
 1. Start the development server:
-`npm start`
+   `npm start`
 2. Open your web browser and visit [http://localhost:3000](http://localhost:3000) to access the application.
 
 ## Project Structure
